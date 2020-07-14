@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+from rest_framework import routers
+
+from apps.example.views import LocationSearchView
+
+router = routers.DefaultRouter()
+router.register("location/search", LocationSearchView, basename="location-search")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url('api/v1/', include(router.urls)),
 ]

@@ -39,6 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+APPLICATION_APPS = [
+    'apps.example',
+]
+
+THIRD_PARTY_APPS = [
+    'haystack',
+]
+
+INSTALLED_APPS += APPLICATION_APPS
+INSTALLED_APPS += THIRD_PARTY_APPS
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -119,3 +130,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# No authentication required for our test app
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
+    ),
+}
+
+# haystack settings
+# https://django-haystack.readthedocs.io/en/master/tutorial.html#modify-your-settings-py
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
+}
